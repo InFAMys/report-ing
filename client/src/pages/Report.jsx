@@ -36,11 +36,11 @@ export default function Login() {
   return (
     <Fragment>
       <Nav />
-      <div className="container d-flex justify-content-center align-items-center vh-100">
+      <div className="container d-flex justify-content-center align-items-center vh-100 montfont">
         <div className="row w-100">
-          <div className="shadow rounded col-md-6 mx-auto p-4 bg-dark text-light">
+          <div className="shadow rounded col-md-8 mx-auto p-4 bg-dark text-light">
             <Form title="Complaint Form" onSubmit={handleSubmit}>
-              <textarea className="form-control" name="content" placeholder="Write Your Complaint Here" onChange={handleChange}></textarea>
+              <textarea  row={3} className="form-control" name="content" placeholder="Write Your Complaint Here" onChange={handleChange}></textarea>
               <button type="submit" className="btn btn-secondary repBtn">Submit</button>
               <div id="entry-point" className="d-none text-success">Success</div>
             </Form>

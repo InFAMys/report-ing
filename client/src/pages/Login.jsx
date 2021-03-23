@@ -1,17 +1,28 @@
 import {Form, Input} from '../components/Form'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
 import './style.css'
 export default function Login() {
 
-  const [state, setState] = useState({email: "", password: "", message: ""})
-
+  const [state, setState] = useState({
+    email: "",
+    password : "",
+    message: "",
+    id_user: JSON.parse(sessionStorage.getItem('id')),
+    token: JSON.parse(sessionStorage.getItem('token'))
+  })
   const handleChange = (e) => {
     setState(state => ({
       ...state,
       [e.target.name]: e.target.value
     }))
   }
+
+  useEffect(() => {
+    if (state.token) {
+      window.location = "/report"
+    }
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault(e)

@@ -31,7 +31,7 @@ export default function Admin() {
       }
     }).catch(err => console.log(err))
   }
-  return (<div className="container d-flex justify-content-center align-items-center vh-100">
+  return (<div className="container d-flex justify-content-center align-items-center vh-100 montfont">
     <div className="row w-100">
       <div className="shadow rounded col-md-6 mx-auto p-4 bg-dark text-light">
         <Form title="Admin Login" onSubmit={handleSubmit}>
