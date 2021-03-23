@@ -5,7 +5,7 @@ import Nav from '../layouts/Nav.jsx'
 import './style.css'
 
 export default function Admindex() {
-  const [state, setState] = useState({
+  const [state] = useState({
     token: JSON.parse(sessionStorage.getItem('tokenAdmin'))
   })
 

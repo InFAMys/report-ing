@@ -28,7 +28,7 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/user', state).then(({data}) => console.log(data)).catch(err => console.log(err));window.location.assign('/report')
+    axios.post('/user', state).then(({data}) => console.log(data)).catch(err => console.log(err));window.location.assign('/login')
   }
 
   return (<div className="container d-flex justify-content-center align-items-center vh-100 montfont">
