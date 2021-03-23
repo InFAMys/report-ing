@@ -1,6 +1,7 @@
 import {Form, Input} from '../components/Form'
 import {useState} from 'react'
 import axios from 'axios'
+import './style.css'
 export default function Login() {
 
   const [state, setState] = useState({email: "", password: "", message: ""})
@@ -14,7 +15,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault(e)
-    axios.post('http://localhost:2121/user/auth', state).then(({data}) => {
+    axios.post('http://localhost:6809/user/auth', state).then(({data}) => {
       if (data.message) {
         setState(state => ({
           ...state,
@@ -31,14 +32,14 @@ export default function Login() {
       }
     }).catch(err => console.log(err))
   }
-  return (<div className="container d-flex justify-content-center align-items-center vh-100">
+  return (<div className="container d-flex justify-content-center align-items-center vh-100 montfont">
     <div className="row w-100">
-      <div className="shadow rounded col-md-6 mx-auto p-4">
+      <div className="shadow rounded col-md-6 mx-auto p-4 bg-dark text-light">
         <Form title="Login Form" onSubmit={handleSubmit}>
           <Input name="email" placeholder="Email" type="email" onChange={handleChange}/>
           <Input name="password" placeholder="Password" type="password" onChange={handleChange}/> {state.message && <div id="message entry w-100 rounded bg-danger">{state.message}</div>}
           <center>
-            <button type="submit" className="btn btn-danger subBtn">Submit</button>
+            <button type="submit" className="btn btn-secondary subBtn">Submit</button>
             <p>Don't Have An Account ? <br/> Register
               <a href="/register"> Here</a>
             </p>

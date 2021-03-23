@@ -3,7 +3,6 @@ module.exports = (app, db) => {
 
   app.post('/admin', (req,res) => {
     const{email, password} = req.body
-    console.log(req.body)
     const tokenAdmin = Math.random() * (69 + 420);
     sql = `select * from admin where email=? and password=?`
     db.query(sql, [email,password], (err,data) => {

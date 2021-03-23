@@ -24,6 +24,6 @@ getAllRoutes = () => {
   });
 };
 
-app.listen(2121, () => console.log('Server Running at port 2121'));
+app.listen(6809, () => console.log('Server Running at port 6809'));
 
 (executor => {getAllRoutes()})()

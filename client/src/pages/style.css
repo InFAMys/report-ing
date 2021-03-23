@@ -1,3 +1,53 @@
 .subBtn {
   margin-bottom: 15px
 }
+.repBtn {
+  margin-top: 15px
+}
+
+.adminTitle {
+  margin-top: 200px
+}
+
+.pw-form {
+  font-size: 20px;
+  margin-bottom: 10px
+}
+
+.user-form {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.b-form {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.inv {
+  margin-bottom: 25px;
+}
+
+.log-btn {
+  margin-right: 15px;
+}
+
+.navbar-brand {
+  font-size: 25px
+}
+
+.rfont {
+  font-family: 'Roboto', sans-serif;
+}
+
+.pmfont {
+  font-family: 'Permanent Marker', cursive;
+}
+
+.montfont {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.upCase {
+  text-transform: uppercase;
+}
