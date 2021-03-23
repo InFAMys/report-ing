@@ -1,7 +1,8 @@
 import {Form, Input} from '../components/Form'
 import {useState} from 'react'
 import axios from 'axios'
-export default function Login() {
+import './style.css'
+export default function Admin() {
 
   const [state, setState] = useState({email: "", password: "", message: ""})
 
@@ -14,7 +15,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault(e)
-    axios.post('http://localhost:2121/user/auth', state).then(({data}) => {
+    axios.post('http://localhost:2121/admin', state).then(({data}) => {
       if (data.message) {
         setState(state => ({
           ...state,
@@ -22,29 +23,29 @@ export default function Login() {
         }))
       } else {
         sessionStorage.setItem('email', JSON.stringify(data.email))
-        sessionStorage.setItem('id', JSON.stringify(data.id_user))
+        sessionStorage.setItem('id', JSON.stringify(data.id_admin))
         sessionStorage.setItem('username', JSON.stringify(data.username))
         sessionStorage.setItem('password', JSON.stringify(data.password))
-        sessionStorage.setItem('telp', JSON.stringify(data.telp))
-        sessionStorage.setItem('token', JSON.stringify(data.token))
-        window.location.assign('/report')
+        sessionStorage.setItem('tokenAdmin', JSON.stringify(data.tokenAdmin))
+        // window.location.assign('/report')
       }
     }).catch(err => console.log(err))
   }
   return (<div className="container d-flex justify-content-center align-items-center vh-100">
     <div className="row w-100">
       <div className="shadow rounded col-md-6 mx-auto p-4">
-        <Form title="Login Form" onSubmit={handleSubmit}>
+        <Form title="Admin Login" onSubmit={handleSubmit}>
           <Input name="email" placeholder="Email" type="email" onChange={handleChange}/>
           <Input name="password" placeholder="Password" type="password" onChange={handleChange}/> {state.message && <div id="message entry w-100 rounded bg-danger">{state.message}</div>}
           <center>
-            <button type="submit" className="btn btn-danger subBtn">Submit</button>
-            <p>Don't Have An Account ? <br/> Register
-              <a href="/register"> Here</a>
-            </p>
-          </center>
-        </Form>
-      </div>
+            <button type="submit" className="btn btn-danger subBtn">
+              Submit</button>
+            <p>
+              Not An Admin ? <br/> User Login <a href = "/login" > Here</a>
+          </p>
+        </center>
+      </Form>
     </div>
-  </div>)
+  </div>
+</div>)
 }

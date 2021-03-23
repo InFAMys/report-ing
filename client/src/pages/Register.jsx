@@ -5,7 +5,10 @@ export default function Register() {
   const [state, setState] = useState({email: '', password: '', username: '', telp: ''})
 
   const handleChange = (e) => {
-    setState(state => ({...state, [e.target.name]: e.target.value}))
+    setState(state => ({
+      ...state,
+      [e.target.name]: e.target.value
+    }))
   }
 
   const handleSubmit = (e) => {
@@ -21,7 +24,12 @@ export default function Register() {
           <Input name="password" placeholder="Password" type="password" onChange={handleChange}/>
           <Input name="username" placeholder="Username" type="text" onChange={handleChange}/>
           <Input name="telp" placeholder="Telephone" type="number" onChange={handleChange}/>
-          <button type="submit" className="btn btn-danger">Submit</button>
+          <center>
+            <button type="submit" className="btn btn-danger subBtn">Submit</button>
+            <p>Have An Account ? <br/> Login
+              <a href="/login"> Here</a>
+            </p>
+          </center>
         </Form>
       </div>
     </div>
