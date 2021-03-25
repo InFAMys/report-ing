@@ -1,10 +1,15 @@
 import {Form, Input} from '../components/Form'
-import {useState, Fragment} from 'react'
+import {useState, useEffect, Fragment} from 'react'
 import axios from 'axios'
 import './style.css'
 export default function Admin() {
 
-  const [state, setState] = useState({email: "", password: "", message: ""})
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+    message: "",
+    token: JSON.parse(sessionStorage.getItem('token'))
+  })
 
   const handleChange = (e) => {
     setState(state => ({
@@ -12,6 +17,12 @@ export default function Admin() {
       [e.target.name]: e.target.value
     }))
   }
+
+  useEffect(() => {
+    if (state.token) {
+      window.location = "/admindex"
+    }
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault(e)
@@ -31,10 +42,6 @@ export default function Admin() {
       }
     }).catch(err => console.log(err))
   }
-  const handleLogout = () => {
-    sessionStorage.clear();
-    window.location.assign("/");
-  };
   return (<Fragment>
     <div className="container d-flex justify-content-center align-items-center vh-100 montfont">
       <div className="row w-100">

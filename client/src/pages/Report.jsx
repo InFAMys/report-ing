@@ -2,7 +2,6 @@ import {Form, Input} from '../components/Form'
 import {Fragment, useState, useEffect} from 'react'
 import axios from 'axios'
 import $ from 'jquery'
-import Nav from '../layouts/Nav'
 import './style.css'
 export default function Login() {
 
@@ -28,7 +27,7 @@ export default function Login() {
         // window.location.assign('/report')
       }).catch((err) => console.log(err));
     }
-  }, [state.id_user]);
+  }, [state.id_user, state.token]);
 
   const handleChange = (e) => {
     setState((state) => ({
@@ -52,7 +51,6 @@ export default function Login() {
   return (<Fragment>
     <nav className="navbar navbar-expand-lg navbar-dark text-light montfont">
       <div className="navbar-brand navbar-brand d-flex flex-row align-items-center">
-        {/* <img width="45" src={logo} alt="Logo" /> */}
         <h3 className="margin-leftlarger-font-size pmfont">Report-S</h3>
       </div>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,13 +58,15 @@ export default function Login() {
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav w-100">
-          <li className="nav-item ml-auto">
+          <li className="nav-item">
             <a className="btn btn-transparent text-light" href="/report">
               <i className="fas fa-plus montfont"></i>{" "}
               Make New Complaint</a>
             <a className="btn btn-transparent text-light" href="/reportindex">
               <i className="fas fa-list montfont"></i>{" "}
               My Complaint</a>
+          </li>
+          <li className="nav-item ml-auto">
             <button className="btn btn-transparent text-light" onClick={handleLogout}>
               <i className="fas fa-sign-out-alt montfont"></i>
               {" "}

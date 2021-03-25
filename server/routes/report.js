@@ -30,18 +30,16 @@ module.exports = (app, db) => {
     })
   })
 
-  // Get Report With APPROVED Status
-  app.get('/report/user/approved', (req, res) => {
-    sql = `select * from report where status = 'Approved'`
+  app.get('/report/user/history', (req, res) => {
+    sql = `select * from report where status != 'Pending'`
     db.query(sql, (err, data) => {
       if (err) throw err
       else res.send(data)
     })
   })
 
-  // Get Report With REJECTED Status
-  app.get('/report/user/rejected', (req, res) => {
-    sql = `select * from report where status = 'Rejected'`
+  app.get('/report/user/total', (req, res) => {
+    sql = `select * from report`
     db.query(sql, (err, data) => {
       if (err) throw err
       else res.send(data)
@@ -59,7 +57,7 @@ module.exports = (app, db) => {
 
   // Update Status Of The Report By ID
   app.put('/report/user/:id/upStatus', (req, res) => {
-    sql = `update report set status = '${req.body.status}' where id_report = ${req.params.id}`
+    sql = `update report set status = '${req.body.status}', response='${req.body.response}' where id_report = ${req.params.id}`
     db.query(sql, (err, data) => {
       if (err) throw err
       else res.send(data)

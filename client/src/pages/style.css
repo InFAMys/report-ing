@@ -1,6 +1,7 @@
 .subBtn {
   margin-bottom: 15px
 }
+
 .repBtn {
   margin-top: 15px
 }
@@ -59,4 +60,8 @@
 
 .rep-ta {
   height: 150px;
+}
+
+textarea[name=content] {
+  resize: none;
 }
