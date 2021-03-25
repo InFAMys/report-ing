@@ -51,3 +51,12 @@
 .upCase {
   text-transform: uppercase;
 }
+
+.ind-mt {
+  margin-top: 170px;
+  margin-bottom: 30px
+}
+
+.rep-ta {
+  height: 150px;
+}

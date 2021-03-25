@@ -3,5 +3,7 @@ import Register from './Register'
 import Report from './Report'
 import Admin from './Admin'
 import Admindex from './Admindex'
+import ReportIndex from './ReportIndex'
+import ReportIndexAdmin from './ReportIndexAdmin'
 
-export {Admin, Login, Register, Report, Admindex }
+export {Admin, Login, Register, Report, Admindex, ReportIndex, ReportIndexAdmin }

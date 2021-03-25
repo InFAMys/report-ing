@@ -1,15 +1,77 @@
 module.exports = (app, db) => {
   let sql = ""
-  app.get('/report', (req,res) => {
+  // Testing Endpoint
+  app.get('/report', (req, res) => {
     res.send('Report API')
   })
 
+  // Add Report
   app.post('/report', (req, res) => {
-    const {content, status, id_user} = req.body
-    sql = `insert into report (content, status, id_user)
-    values ("${content}", 'Pending', '${id_user}')`
+    const {
+      title,
+      content,
+      status,
+      id_user
+    } = req.body
+    sql = `insert into report (title, content, status, id_user)
+    values ("${title}", "${content}", 'Pending', '${id_user}')`
     db.query(sql, (err, res) => {
+      if (err)
+        throw err
+    })
+  })
+
+  // Get Report With PENDING Status
+  app.get('/report/user/pending', (req, res) => {
+    sql = `select * from report where status = 'Pending'`
+    db.query(sql, (err, data) => {
       if (err) throw err
+      else res.send(data)
+    })
+  })
+
+  // Get Report With APPROVED Status
+  app.get('/report/user/approved', (req, res) => {
+    sql = `select * from report where status = 'Approved'`
+    db.query(sql, (err, data) => {
+      if (err) throw err
+      else res.send(data)
+    })
+  })
+
+  // Get Report With REJECTED Status
+  app.get('/report/user/rejected', (req, res) => {
+    sql = `select * from report where status = 'Rejected'`
+    db.query(sql, (err, data) => {
+      if (err) throw err
+      else res.send(data)
+    })
+  })
+
+  // Get Report By User ID
+  app.get('/report/user/:id', (req, res) => {
+    sql = `select * from report where id_user = ${req.params.id}`
+    db.query(sql, (err, data) => {
+      if (err) throw err
+      else res.send(data)
+    })
+  })
+
+  // Update Status Of The Report By ID
+  app.put('/report/user/:id/upStatus', (req, res) => {
+    sql = `update report set status = '${req.body.status}' where id_report = ${req.params.id}`
+    db.query(sql, (err, data) => {
+      if (err) throw err
+      else res.send(data)
+    })
+  })
+
+  // Delete Report By ID
+  app.delete('/report/user/:id/del', (req, res) => {
+    sql = `delete from report where id_report = ${req.params.id}`
+    db.query(sql, (err, data) => {
+      if (err) throw err
+      else res.send(data)
     })
   })
 }
