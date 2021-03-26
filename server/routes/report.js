@@ -23,7 +23,7 @@ module.exports = (app, db) => {
 
   // Get Report With PENDING Status
   app.get('/report/user/pending', (req, res) => {
-    sql = `select * from report where status = 'Pending'`
+    sql = `SELECT id_report, username, title, content, response, date_created, status FROM user LEFT JOIN report ON user.id_user = report.id_user WHERE status='Pending';`
     db.query(sql, (err, data) => {
       if (err) throw err
       else res.send(data)
@@ -57,7 +57,7 @@ module.exports = (app, db) => {
 
   // Update Status Of The Report By ID
   app.put('/report/user/:id/upStatus', (req, res) => {
-    sql = `update report set status = '${req.body.status}', response='${req.body.response}' where id_report = ${req.params.id}`
+    sql = `update report set status = '${req.body.status}', response='${req.body.response}', id_admin=${req.body.id_admin} where id_report = ${req.params.id}`
     db.query(sql, (err, data) => {
       if (err) throw err
       else res.send(data)

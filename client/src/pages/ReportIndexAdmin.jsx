@@ -24,7 +24,7 @@ export default function Login() {
   }, [state.id_user]);
 
   const updateStatus = (reportId, status) => {
-    axios.put(`http://localhost:6809/report/user/${reportId}/upStatus`, {status, response: state.content}).then((response) => console.log(response)).catch((err) => console.log(err));
+    axios.put(`http://localhost:6809/report/user/${reportId}/upStatus`, {status, response: state.content, id_admin: state.id_user}).then((response) => console.log(response)).catch((err) => console.log(err));
     window.location.reload();
   };
 
@@ -79,6 +79,7 @@ export default function Login() {
             <th scope="col">Title</th>
             <th scope="col">Content</th>
             <th scope="col">Date Reported</th>
+            <th scope="col">Username</th>
             <th scope="col">Status</th>
           </tr>
         </thead>
@@ -89,6 +90,7 @@ export default function Login() {
               <td className="align-middle">{element.title}</td>
               <td className="align-middle">{element.content}</td>
               <td className="align-middle">{new Date(element.date_created).toLocaleString()}</td>
+              <td className="align-middle">{element.username}</td>
               <td className="align-middle">{element.status}</td>
               <td className="align-middle">
                 <textarea className="form-control" name="content" placeholder="Response" style={{
