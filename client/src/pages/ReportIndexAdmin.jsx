@@ -24,7 +24,11 @@ export default function Login() {
   }, [state.id_user]);
 
   const updateStatus = (reportId, status) => {
-    axios.put(`http://localhost:6809/report/user/${reportId}/upStatus`, {status, response: state.content, id_admin: state.id_user}).then((response) => console.log(response)).catch((err) => console.log(err));
+    axios.put(`http://localhost:6809/report/user/${reportId}/upStatus`, {
+      status,
+      response: state.content,
+      id_admin: state.id_user
+    }).then((response) => console.log(response)).catch((err) => console.log(err));
     window.location.reload();
   };
 
@@ -81,6 +85,7 @@ export default function Login() {
             <th scope="col">Date Reported</th>
             <th scope="col">Username</th>
             <th scope="col">Status</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         {

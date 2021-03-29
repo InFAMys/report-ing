@@ -63,6 +63,7 @@ export default function Login() {
               <th scope="col">#</th>
               <th scope="col">Title</th>
               <th scope="col">Content</th>
+              <th scope="col">Response</th>
               {/*<th scope="col">Operator</th>*/}
               <th scope="col">Status</th>
             </tr>
@@ -73,6 +74,7 @@ export default function Login() {
                 <th scope="row">{index+1}</th>
                 <td>{element.title}</td>
                 <td>{element.content}</td>
+                <td>{element.response}</td>
                 {/*<td>{element.id_admin}</td>*/}
                 <td>{element.status}</td>
               </tr>

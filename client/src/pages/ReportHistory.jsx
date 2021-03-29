@@ -70,7 +70,7 @@ export default function Login() {
     </nav>
     <div className="montfont">
       <table className="table table-secondary table-striped table-hover montfont">
-        <thead className="thead-dark">
+        <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col" className="w-25">
@@ -79,51 +79,60 @@ export default function Login() {
             <th scope="col">Date Created</th>
             <th scope="col">Status</th>
             <th scope="col">Response</th>
+            <th scope="col">User ID</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         {
-          state.report.map((element, index) => (<tbody key={index}>
-            <tr>
-              <th scope="row" className="align-middle">
-                {index + 1}
-              </th>
-              <td className="align-middle">{element.content}</td>
-              <td className="align-middle">{new Date(element.date_created).toLocaleString()}</td>
-              <td className="align-middle">{element.status}</td>
-              <td className="align-middle">{element.response}</td>
-              <td className="align-middle">
-                <button className="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">
-                  <i className="fas fa-trash-alt montfont"></i>{" "}Delete
-                </button>
-              </td>
-            </tr>
-            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">
-                      This Report Will Be Deleted!
-                    </h5>
-                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
+          state.report.map((element, index) => {
+            return (<Fragment key={index}>
+              <tbody >
+                <tr>
+                  <th scope="row" className="align-middle">
+                    {index + 1}
+                  </th>
+                  <td className="align-middle">{element.content}</td>
+                  <td className="align-middle">{new Date(element.date_created).toLocaleString()}</td>
+                  <td className="align-middle">{element.status}</td>
+                  <td className="align-middle">{element.response}</td>
+                  <td className="align-middle">{element.id_user}</td>
+                  <td className="align-middle">
+                    <button className="btn btn-danger btn-sm" data-toggle="modal" data-target={`#delModal${index}`}>
+                      <i className="fas fa-trash-alt montfont"></i>{" "}Delete
                     </button>
-                  </div>
-                  <div className="modal-body">Are You Sure ?</div>
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal">
-                      <i className="fas fa-times-circle montfont"></i>{" "}No
-                    </button>
-                    <button type="button" className="btn btn-danger" onClick={() => deleteReport(element.id_report)}>
-                      <i className="fas fa-trash-alt montfont"></i>{" "}Yes
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </tbody>))
+                  </td>
+                </tr>
+
+              </tbody>
+            </Fragment>)
+          })
         }
       </table>
+      {
+        state.report.map((element, index) => (<div key={index} className="modal fade" id={`delModal${index}`} tabIndex="-1" aria-labelledby="delModalLabel" aria-hidden="true">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header bg-dark">
+                <h5 className="modal-title" id="delModalLabel">
+                  This Report Will Be Deleted!
+                </h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body bg-dark">Are You Sure ?</div>
+              <div className="modal-footer bg-dark">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">
+                  <i className="fas fa-times-circle montfont"></i>{" "}No
+                </button>
+                <button type="button" className="btn btn-danger" onClick={() => deleteReport(element.id_report)}>
+                  <i className="fas fa-trash-alt montfont"></i>{" "}Yes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>))
+      }
     </div>
   </Fragment>);
 }

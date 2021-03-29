@@ -80,7 +80,7 @@ export default function Admindex() {
     </nav>
     <center>
       <h1 className="adminTitle montfont">Admin Page</h1>
-      <div className="container-fluid">
+      {/*}<div className="container-fluid">
         <div className="row justify-content-center">
           <div className="col-auto navbar-brand d-flex flex-row align-items-center">
             <div className="row">
@@ -97,7 +97,7 @@ export default function Admindex() {
             </div>
           </div>
         </div>
-      </div>
+      </div>*/}
     </center>
   </div>)
 }
