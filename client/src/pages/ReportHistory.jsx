@@ -54,6 +54,9 @@ export default function Login() {
             <a className="btn btn-transparent text-light" href="/reportindexadmin">
               <i className="fas fa-list montfont"></i>{" "}
               Complaint List</a>
+            <a className="btn btn-transparent text-light" href="/ongoing">
+                <i className="fas fa-spinner montfont"></i>{" "}
+                On Going Complaint</a>
             <a className="btn btn-transparent text-light" href="/history">
               <i className="fas fa-history montfont"></i>{" "}
               Complaint History</a>

@@ -24,12 +24,23 @@ export default function Login() {
   }, [state.id_user]);
 
   const updateStatus = (reportId, status) => {
-    axios.put(`http://localhost:6809/report/user/${reportId}/upStatus`, {
-      status,
-      response: state.content,
-      id_admin: state.id_user
-    }).then((response) => console.log(response)).catch((err) => console.log(err));
-    window.location.reload();
+    if (state.content.trim().length > 0) {
+      axios.put(`http://localhost:6809/report/user/${reportId}/upStatus`, {
+        status,
+        response: state.content,
+        id_admin: state.id_user
+      }).then((response) => console.log(response)).catch((err) => console.log(err));
+      window.location.reload();
+    }
+  };
+
+  const upOnGoing = (reportId, status) => {
+      axios.put(`http://localhost:6809/report/user/${reportId}/upStatus`, {
+        status,
+        response: state.content,
+        id_admin: state.id_user
+      }).then((response) => console.log(response)).catch((err) => console.log(err));
+      window.location.reload();
   };
 
   const handleLogout = () => {
@@ -61,6 +72,9 @@ export default function Login() {
             <a className="btn btn-transparent text-light" href="/reportindexadmin">
               <i className="fas fa-list montfont"></i>{" "}
               Complaint List</a>
+            <a className="btn btn-transparent text-light" href="/ongoing">
+                <i className="fas fa-spinner montfont"></i>{" "}
+                On Going Complaint</a>
             <a className="btn btn-transparent text-light" href="/history">
               <i className="fas fa-history montfont"></i>{" "}
               Complaint History</a>
@@ -98,17 +112,72 @@ export default function Login() {
               <td className="align-middle">{element.username}</td>
               <td className="align-middle">{element.status}</td>
               <td className="align-middle">
-                <textarea className="form-control" name="content" placeholder="Response" style={{
-                    height: "150px"
-                  }} onChange={handleChange} required="required"/>
                 <div className="btn-group d-flex" role="group">
-                  <button className="btn btn-success btn-sm" onClick={() => updateStatus(element.id_report, "Approved")}>
+                  <button className="btn btn-success btn-sm" data-toggle="modal" data-target={`#appModal${index}`}>
                     <i className="fas fa-check-square montfont"></i>{" "}Approve
                   </button>
-                  <button className="btn btn-danger btn-sm" onClick={() => updateStatus(element.id_report, "Rejected")}>
+                  <button className="btn btn-danger btn-sm" data-toggle="modal" data-target={`#rejModal${index}`}>
                     <i className="fas fa-times-circle montfont"></i>{" "}Reject
                   </button>
                 </div>
+                {
+                  state.report.map((element, index) => (<div key={index} className="modal fade" id={`appModal${index}`} tabIndex="-1" aria-labelledby="AppModLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header bg-dark text-light">
+                          <h5 className="modal-title" id="AppModLabel">
+                            Approve This Complaint ?
+                          </h5>
+                          <button type="button" className="close text-light" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div className="modal-body bg-dark text-light">
+                          Are You Sure ?
+                        </div>
+                        <div className="modal-footer bg-dark text-light">
+                          <button type="button" className="btn btn-danger" data-dismiss="modal">
+                            <i className="fas fa-times-circle montfont"></i>{" "}No
+                          </button>
+                          <button type="button" className="btn btn-success" onClick={() => upOnGoing(element.id_report, "On Going")}>
+                            <i className="fas fa-check-square montfont"></i>{" "}
+                            Yes
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>))
+                }
+                {
+                  state.report.map((element, index) => (<div key={index} className="modal fade" id={`rejModal${index}`} tabIndex="-1" aria-labelledby="RejModLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header bg-dark text-light">
+                          <h5 className="modal-title" id="RejModLabel">
+                            Reject This Complaint ?
+                          </h5>
+                          <button type="button" className="close text-light" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div className="modal-body bg-dark text-light">
+                          <h6 className="my-3">Write The Reason Why You Reject This Complaint:</h6>
+                          <textarea className="form-control" name="content" placeholder="Response" style={{
+                              height: "300px"
+                            }} onChange={handleChange} required/>
+                        </div>
+                        <div className="modal-footer bg-dark text-light">
+                          <button type="button" className="btn btn-secondary" data-dismiss="modal">
+                            <i className="fas fa-times-circle montfont"></i>{" "}Cancel
+                          </button>
+                          <button type="submit" className="btn btn-danger" onClick={() => updateStatus(element.id_report, "Rejected")}>
+                            <i className="fas fa-check-square montfont"></i>{" "}Reject
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>))
+                }
               </td>
             </tr>
           </tbody>))

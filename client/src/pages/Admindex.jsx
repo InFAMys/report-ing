@@ -1,44 +1,15 @@
 import {useState, useEffect} from 'react'
-import axios from 'axios'
+// import axios from 'axios'
 import './style.css'
 
 export default function Admindex() {
-  const [state, setState] = useState({
-        token: JSON.parse(sessionStorage.getItem("tokenAdmin")),
-        pendingReport: 0,
-        totalReport: 0,
-        totalUser: 0
-      });
+  const [state] = useState({
+    token: JSON.parse(sessionStorage.getItem("tokenAdmin"))
+  });
 
   useEffect(() => {
     if (!state.token) {
       window.location = "/admin"
-    } else {
-      axios.get(`http://localhost:6809/report/user/pending`).then(({data}) => {
-        console.log(data);
-        setState((state) => ({
-          ...state,
-          pendingReport: data.length
-        }));
-
-        axios.get(`http://localhost:6809/report/user/total`).then(({data}) => {
-          console.log(data);
-          setState((state) => ({
-            ...state,
-            totalReport: data.length
-          }));
-
-          axios.get(`http://localhost:6809/user`).then(({data}) => {
-            console.log(data);
-            setState((state) => ({
-              ...state,
-              totalUser: data.length
-            }));
-          })
-
-        })
-
-      }).catch((err) => console.log(err));
     }
   });
 
@@ -80,24 +51,6 @@ export default function Admindex() {
     </nav>
     <center>
       <h1 className="adminTitle montfont">Admin Page</h1>
-      {/*}<div className="container-fluid">
-        <div className="row justify-content-center">
-          <div className="col-auto navbar-brand d-flex flex-row align-items-center">
-            <div className="row">
-              <div className="col-md-4">{state.pendingReport}</div>
-              <div>Pending Report</div>
-            </div>
-            <div className="row">
-              <div className="col-md-4">{state.totalReport}</div>
-              <div>Total Report</div>
-            </div>
-            <div className="row">
-              <div className="col-md-4">{state.totalUser}</div>
-              <div>Total User</div>
-            </div>
-          </div>
-        </div>
-      </div>*/}
     </center>
   </div>)
 }

@@ -6,5 +6,6 @@ import Admindex from './Admindex'
 import ReportIndex from './ReportIndex'
 import ReportIndexAdmin from './ReportIndexAdmin'
 import ReportHistory from './ReportHistory'
+import ReportWorkAdmin from './ReportWorkAdmin'
 
-export {Admin, Login, Register, Report, Admindex, ReportIndex, ReportIndexAdmin, ReportHistory }
+export {Admin, Login, Register, Report, Admindex, ReportIndex, ReportIndexAdmin, ReportHistory, ReportWorkAdmin }

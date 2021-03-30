@@ -18,7 +18,6 @@ export default function Login() {
         .then(({ data }) => {
           console.log(data);
           setState((state) => ({ ...state, report: data }));
-          // window.location.assign('/report')
         })
         .catch((err) => console.log(err));
   }, [state.id_user]);
