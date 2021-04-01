@@ -31,7 +31,7 @@ module.exports = (app, db) => {
   })
 
   app.get('/report/user/ongoing', (req, res) => {
-    sql = `SELECT id_report, username, title, content, response, date_created, status FROM user LEFT JOIN report ON user.id_user = report.id_user WHERE status='On Going';`
+    sql = `SELECT id_report, username, title, content, response, date_created, status FROM user LEFT JOIN report ON user.id_user = report.id_user WHERE status='In Progress';`
     db.query(sql, (err, data) => {
       if (err) throw err
       else res.send(data)
@@ -39,7 +39,7 @@ module.exports = (app, db) => {
   })
 
   app.get('/report/user/history', (req, res) => {
-    sql = `SELECT * FROM report WHERE status IN ('Finished', 'Rejected')`
+    sql = `SELECT id_report, username, title, content, response, date_created, status FROM user LEFT JOIN report ON user.id_user = report.id_user WHERE status IN ('Finished', 'Rejected');`
     db.query(sql, (err, data) => {
       if (err) throw err
       else res.send(data)

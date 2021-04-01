@@ -35,6 +35,9 @@ export default function Admindex() {
             <a className="btn btn-transparent text-light" href="/reportindexadmin">
               <i className="fas fa-list montfont"></i>{" "}
               Complaint List</a>
+            <a className="btn btn-transparent text-light" href="/ongoing">
+              <i className="fas fa-spinner montfont"></i>{" "}
+              In Progress</a>
             <a className="btn btn-transparent text-light" href="/history">
               <i className="fas fa-history montfont"></i>{" "}
               Complaint History</a>
@@ -52,5 +55,6 @@ export default function Admindex() {
     <center>
       <h1 className="adminTitle montfont">Admin Page</h1>
     </center>
+    
   </div>)
 }

@@ -74,7 +74,7 @@ export default function Login() {
               Complaint List</a>
             <a className="btn btn-transparent text-light" href="/ongoing">
                 <i className="fas fa-spinner montfont"></i>{" "}
-                On Going Complaint</a>
+                In Progress</a>
             <a className="btn btn-transparent text-light" href="/history">
               <i className="fas fa-history montfont"></i>{" "}
               Complaint History</a>
@@ -139,7 +139,7 @@ export default function Login() {
                           <button type="button" className="btn btn-danger" data-dismiss="modal">
                             <i className="fas fa-times-circle montfont"></i>{" "}No
                           </button>
-                          <button type="button" className="btn btn-success" onClick={() => upOnGoing(element.id_report, "On Going")}>
+                          <button type="button" className="btn btn-success" onClick={() => upOnGoing(element.id_report, "In Progress")}>
                             <i className="fas fa-check-square montfont"></i>{" "}
                             Yes
                           </button>

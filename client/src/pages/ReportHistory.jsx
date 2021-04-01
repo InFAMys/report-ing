@@ -55,11 +55,13 @@ export default function Login() {
               <i className="fas fa-list montfont"></i>{" "}
               Complaint List</a>
             <a className="btn btn-transparent text-light" href="/ongoing">
-                <i className="fas fa-spinner montfont"></i>{" "}
-                On Going Complaint</a>
+              <i className="fas fa-spinner montfont"></i>{" "}
+              In Progress</a>
             <a className="btn btn-transparent text-light" href="/history">
               <i className="fas fa-history montfont"></i>{" "}
               Complaint History</a>
+            <button className="btn btn-transparent text-light" onClick={() => window.print()}>
+              <i className="fas fa-print montfont"></i>{" "}Print This Page</button>
           </li>
           <li className="nav-item ml-auto">
             <button className="btn btn-transparent text-light" onClick={handleLogout}>
@@ -71,36 +73,37 @@ export default function Login() {
         </ul>
       </div>
     </nav>
+    <center></center>
     <div className="montfont">
-      <table className="table table-secondary table-striped table-hover montfont">
+      <table className="table table-secondary table-striped table-hover montfont" id="section-to-print">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col" className="w-25">
-              Content
-            </th>
+            <th scope="col">Title</th>
+            <th scope="col">Content</th>
+            <th scope="col">Response</th>
+            <th scope="col">Username</th>
             <th scope="col">Date Created</th>
             <th scope="col">Status</th>
-            <th scope="col">Response</th>
-            <th scope="col">User ID</th>
-            <th scope="col">Action</th>
+            <th scope="col" id="exclude-print">Action</th>
           </tr>
         </thead>
         {
           state.report.map((element, index) => {
             return (<Fragment key={index}>
-              <tbody >
+              <tbody>
                 <tr>
                   <th scope="row" className="align-middle">
                     {index + 1}
                   </th>
+                  <td className="align-middle">{element.title}</td>
                   <td className="align-middle">{element.content}</td>
+                  <td className="align-middle">{element.response}</td>
+                  <td className="align-middle">{element.username}</td>
                   <td className="align-middle">{new Date(element.date_created).toLocaleString()}</td>
                   <td className="align-middle">{element.status}</td>
-                  <td className="align-middle">{element.response}</td>
-                  <td className="align-middle">{element.id_user}</td>
                   <td className="align-middle">
-                    <button className="btn btn-danger btn-sm" data-toggle="modal" data-target={`#delModal${index}`}>
+                    <button className="btn btn-danger btn-sm" data-toggle="modal" data-target={`#delModal${index}`} id="exclude-print">
                       <i className="fas fa-trash-alt montfont"></i>{" "}Delete
                     </button>
                   </td>
