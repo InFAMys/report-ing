@@ -3,21 +3,8 @@ import {Fragment, useState, useEffect} from 'react'
 import axios from 'axios'
 import $ from 'jquery'
 import './style.css'
-const apiUrl = 'http://localhost:6809';
 
 export default function Login() {
-
-  axios.interceptors.request.use(config => {
-    const {origin} = new URL(config.url);
-    const allowedOrigins = [apiUrl];
-    const token = sessionStorage.getItem('token');
-    if (allowedOrigins.includes(origin)) {
-      config.headers.token = JSON.parse(`${token}`);
-    }
-    return config;
-  }, error => {
-    return Promise.reject(error);
-  });
 
   const [state, setState] = useState({
     title: "",
@@ -32,7 +19,7 @@ export default function Login() {
     if (!state.token) {
       window.location = "/login";
     } else {
-      axios.get(`http://localhost:6809/report/user/${state.id_user}`).then(({data}) => {
+      axios.get(`http://localhost:6809/report/user/${state.id_user}`, {headers: {token: state.token}}).then(({data}) => {
         console.log(data);
         setState((state) => ({
           ...state,

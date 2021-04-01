@@ -1,21 +1,8 @@
 import {Fragment, useState, useEffect} from "react";
 import axios from "axios";
 import "./style.css";
-const apiUrl = 'http://localhost:6809';
 
 export default function Login() {
-
-  axios.interceptors.request.use(config => {
-    const {origin} = new URL(config.url);
-    const allowedOrigins = [apiUrl];
-    const token = sessionStorage.getItem('tokenAdmin');
-    if (allowedOrigins.includes(origin)) {
-      config.headers.token = JSON.parse(`${token}`);
-    }
-    return config;
-  }, error => {
-    return Promise.reject(error);
-  });
 
   const [state, setState] = useState({
     content: "",
@@ -27,7 +14,7 @@ export default function Login() {
   });
 
   useEffect(() => {
-    axios.get(`http://localhost:6809/report/user/pending`).then(({data}) => {
+    axios.get(`http://localhost:6809/report/user/pending`, {headers: {token: state.token}}).then(({data}) => {
       console.log(data);
       setState((state) => ({
         ...state,
@@ -35,7 +22,7 @@ export default function Login() {
       }));
       // window.location.assign('/report')
     }).catch((err) => console.log(err));
-  }, [state.id_user]);
+  }, [state.id_user, state.token]);
 
   const updateStatus = (reportId, status) => {
     if (state.content.trim().length > 0) {
@@ -59,7 +46,7 @@ export default function Login() {
 
   const handleLogout = () => {
     sessionStorage.clear();
-    window.location.assign("/");
+    window.location.assign("/admin");
   };
 
   const handleChange = (e) => {

@@ -15,7 +15,7 @@ export default function Admindex() {
 
   const handleLogout = () => {
     sessionStorage.clear();
-    window.location.assign("/");
+    window.location.assign("/admin");
   };
 
   return (<div>
@@ -55,6 +55,6 @@ export default function Admindex() {
     <center>
       <h1 className="adminTitle montfont">Admin Page</h1>
     </center>
-    
+
   </div>)
 }

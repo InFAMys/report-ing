@@ -4,52 +4,32 @@ module.exports = (app, db) => {
 
   const userAuth = (request, result, next) => {
     const userKey = "U=t'jRDE]&)_F#vDPkrwt?9AaI?'i?5+O'dK^4,[B]ZYV}G{hocAnE_}&PO>3)F"
-
-    if (typeof(request.headers['token']) == 'undefined') {
-      return result.status(403).json({
-        success: false,
-        message: 'Unauthorized. Token Is Not Provided Or Invalid'
-      })
-    }
-
-    let token = request.headers['token']
-
+    let token = request.header('token')
     jwt.verify(token, userKey, (err, decoded) => {
       if (err) {
         return result.status(401).json({
           success: false,
           message: 'Unauthorized. Token is Token Is Not Provided Or Invalid'
         })
+      } else {
+        next()
       }
     })
-
-    // lanjut ke next request
-    next()
   }
 
   const adminAuth = (request, result, next) => {
     const adminKey = "?5*SR82;)tbJ;Jm{hxH17oJU{qE8kmNb*KC~>Be6b~S^=NO6<}8YKR8BKW6<mN."
-
-    if (typeof(request.headers['token']) == 'undefined') {
-      return result.status(403).json({
-        success: false,
-        message: 'Unauthorized. Token Is Not Provided Or Invalid'
-      })
-    }
-
-    let token = request.headers['token']
-
+    const token = request.header('token')
     jwt.verify(token, adminKey, (err, decoded) => {
       if (err) {
-        return result.status(401).json({
+        result.status(401).json({
           success: false,
-          message: 'Unauthorized. Token is Token Is Not Provided Or Invalid'
+          message: 'Unauthorized. Token is Not Provided Or Invalid'
         })
+      } else {
+        next()
       }
     })
-
-    // lanjut ke next request
-    next()
   }
 
   let sql = ""

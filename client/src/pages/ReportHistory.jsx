@@ -1,21 +1,8 @@
 import {Fragment, useState, useEffect} from "react";
 import axios from "axios";
 import "./style.css";
-const apiUrl = 'http://localhost:6809';
 
 export default function Login() {
-
-  axios.interceptors.request.use(config => {
-    const {origin} = new URL(config.url);
-    const allowedOrigins = [apiUrl];
-    const token = sessionStorage.getItem('tokenAdmin');
-    if (allowedOrigins.includes(origin)) {
-      config.headers.token = JSON.parse(`${token}`);
-    }
-    return config;
-  }, error => {
-    return Promise.reject(error);
-  });
 
   const [state, setState] = useState({
     content: "",
@@ -30,7 +17,7 @@ export default function Login() {
     if (!state.token) {
       window.location = "/admin";
     } else {
-      axios.get(`http://localhost:6809/report/user/history`).then(({data}) => {
+      axios.get(`http://localhost:6809/report/user/history`, {headers: {token: state.token}}).then(({data}) => {
         console.log(data);
         setState((state) => ({
           ...state,
@@ -48,7 +35,7 @@ export default function Login() {
 
   const handleLogout = () => {
     sessionStorage.clear();
-    window.location.assign("/");
+    window.location.assign("/admin");
   };
 
   return (<Fragment>
@@ -74,8 +61,6 @@ export default function Login() {
             <a className="btn btn-transparent text-light" href="/history">
               <i className="fas fa-history montfont"></i>{" "}
               Complaint History</a>
-            <button className="btn btn-transparent text-light" onClick={() => window.print()}>
-              <i className="fas fa-print montfont"></i>{" "}Print This Page</button>
           </li>
           <li className="nav-item ml-auto">
             <button className="btn btn-transparent text-light" onClick={handleLogout}>
@@ -87,7 +72,8 @@ export default function Login() {
         </ul>
       </div>
     </nav>
-    <center></center>
+    <center><button className="btn btn-primary btn-block text-light" onClick={() => window.print()}>
+      <i className="fas fa-print montfont"></i>{" "}Print This Page</button></center>
     <div className="montfont">
       <table className="table table-secondary table-striped table-hover montfont" id="section-to-print">
         <thead>
