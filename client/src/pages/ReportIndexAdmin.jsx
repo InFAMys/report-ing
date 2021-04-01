@@ -1,8 +1,22 @@
 import {Fragment, useState, useEffect} from "react";
 import axios from "axios";
 import "./style.css";
+const apiUrl = 'http://localhost:6809';
 
 export default function Login() {
+
+  axios.interceptors.request.use(config => {
+    const {origin} = new URL(config.url);
+    const allowedOrigins = [apiUrl];
+    const token = sessionStorage.getItem('tokenAdmin');
+    if (allowedOrigins.includes(origin)) {
+      config.headers.token = JSON.parse(`${token}`);
+    }
+    return config;
+  }, error => {
+    return Promise.reject(error);
+  });
+
   const [state, setState] = useState({
     content: "",
     status: "",
@@ -35,12 +49,12 @@ export default function Login() {
   };
 
   const upOnGoing = (reportId, status) => {
-      axios.put(`http://localhost:6809/report/user/${reportId}/upStatus`, {
-        status,
-        response: state.content,
-        id_admin: state.id_user
-      }).then((response) => console.log(response)).catch((err) => console.log(err));
-      window.location.reload();
+    axios.put(`http://localhost:6809/report/user/${reportId}/upStatus`, {
+      status,
+      response: state.content,
+      id_admin: state.id_user
+    }).then((response) => console.log(response)).catch((err) => console.log(err));
+    window.location.reload();
   };
 
   const handleLogout = () => {
@@ -73,8 +87,8 @@ export default function Login() {
               <i className="fas fa-list montfont"></i>{" "}
               Complaint List</a>
             <a className="btn btn-transparent text-light" href="/ongoing">
-                <i className="fas fa-spinner montfont"></i>{" "}
-                In Progress</a>
+              <i className="fas fa-spinner montfont"></i>{" "}
+              In Progress</a>
             <a className="btn btn-transparent text-light" href="/history">
               <i className="fas fa-history montfont"></i>{" "}
               Complaint History</a>
@@ -164,7 +178,7 @@ export default function Login() {
                           <h6 className="my-3">Write The Reason Why You Reject This Complaint:</h6>
                           <textarea className="form-control" name="content" placeholder="Response" style={{
                               height: "300px"
-                            }} onChange={handleChange} required/>
+                            }} onChange={handleChange} required="required"/>
                         </div>
                         <div className="modal-footer bg-dark text-light">
                           <button type="button" className="btn btn-secondary" data-dismiss="modal">

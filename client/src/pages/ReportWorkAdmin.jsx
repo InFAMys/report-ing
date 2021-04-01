@@ -1,8 +1,22 @@
 import {Fragment, useState, useEffect} from "react";
 import axios from "axios";
 import "./style.css";
+const apiUrl = 'http://localhost:6809';
 
 export default function Login() {
+
+  axios.interceptors.request.use(config => {
+    const {origin} = new URL(config.url);
+    const allowedOrigins = [apiUrl];
+    const token = sessionStorage.getItem('tokenAdmin');
+    if (allowedOrigins.includes(origin)) {
+      config.headers.token = JSON.parse(`${token}`);
+    }
+    return config;
+  }, error => {
+    return Promise.reject(error);
+  });
+
   const [state, setState] = useState({
     content: "",
     status: "",

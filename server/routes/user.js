@@ -32,7 +32,7 @@ module.exports = (app, db) => {
     })
   })
 
-  const userKey = "EA4D02BE0C3FCC2F953AB65E628459FC811DC398E3B52FA79F46F06A90CA80BD"
+  const userKey = "U=t'jRDE]&)_F#vDPkrwt?9AaI?'i?5+O'dK^4,[B]ZYV}G{hocAnE_}&PO>3)F"
 
   app.post('/user/auth', async (req, res) => {
     const {
