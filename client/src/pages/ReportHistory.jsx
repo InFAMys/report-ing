@@ -29,7 +29,7 @@ export default function Login() {
   }, [state.id_user, state.token]);
 
   const deleteReport = (reportId) => {
-    axios.delete(`http://localhost:6809/report/user/${reportId}/del`).then((response) => console.log(response)).catch((err) => console.log(err));
+    axios.delete(`http://localhost:6809/report/user/${reportId}/del`, {headers: {token: state.token}}).then((response) => console.log(response)).catch((err) => console.log(err));
     window.location.reload();
   };
 
@@ -75,8 +75,8 @@ export default function Login() {
     <center><button className="btn btn-primary btn-block text-light" onClick={() => window.print()}>
       <i className="fas fa-print montfont"></i>{" "}Print This Page</button></center>
     <div className="montfont">
-      <table className="table table-secondary table-striped table-hover montfont" id="section-to-print">
-        <thead>
+      <table className="table table-secondary table-hover montfont" id="section-to-print">
+        <thead className="thead-dark">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Title</th>

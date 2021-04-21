@@ -61,7 +61,7 @@ export default function Login() {
       </div>
     </nav>
     <table className="table table-striped table-hover table-secondary montfont">
-      <thead className="">
+      <thead className="thead-dark">
         <tr>
           <th scope="col">#</th>
           <th scope="col">Title</th>

@@ -30,7 +30,7 @@ export default function Login() {
         status,
         response: state.content,
         id_admin: state.id_user
-      }).then((response) => console.log(response)).catch((err) => console.log(err));
+      }, {headers: {token: state.token}}).then((response) => console.log(response)).catch((err) => console.log(err));
       window.location.reload();
     }
   };
@@ -83,7 +83,7 @@ export default function Login() {
     </nav>
     <div>
       <table className="table table-secondary table-striped table-hover montfont">
-        <thead>
+        <thead className="thead-dark">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Title</th>
@@ -104,14 +104,47 @@ export default function Login() {
               <td className="align-middle">{element.username}</td>
               <td className="align-middle">{element.status}</td>
               <td className="align-middle">
-                <textarea className="form-control" name="content" placeholder="Response" style={{
+                {/*<textarea className="form-control" name="content" placeholder="Response" style={{
                     height: "150px"
-                  }} onChange={handleChange} required="required"/>
+                  }} onChange={handleChange} required="required"/>*/}
                 <div className="btn-group d-flex" role="group">
-                  <button className="btn btn-success btn-sm" onClick={() => updateStatus(element.id_report, "Finished")}>
+                  {/*<button className="btn btn-success btn-sm" onClick={() => updateStatus(element.id_report, "Finished")}>
+                    <i className="fas fa-check-square montfont"></i>{" "}Finish
+                  </button>*/}
+                  <button className="btn btn-success" data-toggle="modal" data-target={`#finModal${index}`}>
                     <i className="fas fa-check-square montfont"></i>{" "}Finish
                   </button>
                 </div>
+                {
+                  state.report.map((element, index) => (<div key={index} className="modal fade" id={`finModal${index}`} tabIndex="-1" aria-labelledby="FinModLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header bg-dark text-light">
+                          <h5 className="modal-title" id="FinModLabel">
+                            Finish This Complaint ?
+                          </h5>
+                          <button type="button" className="close text-light" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div className="modal-body bg-dark text-light">
+                          <h6 className="my-3">Please Write The Response To This Complaint:</h6>
+                          <textarea className="form-control" name="content" placeholder="Response" style={{
+                              height: "300px"
+                            }} onChange={handleChange} required="required"/>
+                        </div>
+                        <div className="modal-footer bg-dark text-light">
+                          <button type="button" className="btn btn-secondary" data-dismiss="modal">
+                            <i className="fas fa-times-circle montfont"></i>{" "}Cancel
+                          </button>
+                          <button type="submit" className="btn btn-success" onClick={() => updateStatus(element.id_report, "Finished")}>
+                            <i className="fas fa-check-square montfont"></i>{" "}Confirm
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>))
+                }
               </td>
             </tr>
           </tbody>))

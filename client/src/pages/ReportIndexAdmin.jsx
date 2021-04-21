@@ -30,7 +30,7 @@ export default function Login() {
         status,
         response: state.content,
         id_admin: state.id_user
-      }).then((response) => console.log(response)).catch((err) => console.log(err));
+      }, {headers: {token: state.token}}).then((response) => console.log(response)).catch((err) => console.log(err));
       window.location.reload();
     }
   };
@@ -40,7 +40,7 @@ export default function Login() {
       status,
       response: state.content,
       id_admin: state.id_user
-    }).then((response) => console.log(response)).catch((err) => console.log(err));
+    }, {headers: {token: state.token}}).then((response) => console.log(response)).catch((err) => console.log(err));
     window.location.reload();
   };
 
@@ -92,7 +92,7 @@ export default function Login() {
     </nav>
     <div>
       <table className="table table-secondary table-striped table-hover montfont">
-        <thead>
+        <thead className="thead-dark">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Title</th>
@@ -162,7 +162,7 @@ export default function Login() {
                           </button>
                         </div>
                         <div className="modal-body bg-dark text-light">
-                          <h6 className="my-3">Write The Reason Why You Reject This Complaint:</h6>
+                          <h6 className="my-3">Please Write The Reason Why You Reject This Complaint:</h6>
                           <textarea className="form-control" name="content" placeholder="Response" style={{
                               height: "300px"
                             }} onChange={handleChange} required="required"/>
@@ -171,8 +171,8 @@ export default function Login() {
                           <button type="button" className="btn btn-secondary" data-dismiss="modal">
                             <i className="fas fa-times-circle montfont"></i>{" "}Cancel
                           </button>
-                          <button type="submit" className="btn btn-danger" onClick={() => updateStatus(element.id_report, "Rejected")}>
-                            <i className="fas fa-check-square montfont"></i>{" "}Reject
+                          <button type="submit" className="btn btn-success" onClick={() => updateStatus(element.id_report, "Rejected")}>
+                            <i className="fas fa-check-square montfont"></i>{" "}Confirm
                           </button>
                         </div>
                       </div>

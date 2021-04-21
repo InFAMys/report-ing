@@ -37,8 +37,8 @@ export default function Login() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(e);
-    axios.post("http://localhost:6809/report", state).then(({data}) => {}).catch((err) => console.log(err));
+    e.preventDefault();
+    axios.post("http://localhost:6809/report", state, {headers: {token: state.token}}).then(({data}) => {}).catch((err) => console.log(err));
     window.location.reload()
     $("#entry-point").removeClass("d-none");
   };
@@ -90,7 +90,6 @@ export default function Login() {
             <button type="submit" className="btn btn-secondary mt-4">
               <i className="fas fa-arrow-alt-circle-right montfont"></i>{" "}
               Submit</button>
-            <div id="entry-point" className="d-none text-success">Success</div>
           </Form>
         </div>
       </div>
